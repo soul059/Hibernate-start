@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost/postgres</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">postgres</property>
+
+        <!-- JDBC connection pool (built-in) -->
+        <property name="hibernate.connection.pool_size">10</property>
+
+        <!-- SQL dialect (important!) -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Enable SQL logging -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Auto schema generation -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!-- options: validate | update | create | create-drop -->
+        <!--    create     : every time program run table is first drop and then create
+                                * point is table values can't stay longer in table if program restarts
+                                * drop -> create
+                create-drop: it will work as create, but it also drops table at end of program
+                                * drop -> create -> drop (at end)
+                update     : just experiment do not use in production
+                                * update table schema data stays same
+                                * creates new column if slight name difference
+                                * cannot be null if created by this default value always assigned
+                validate   : only validation no data update in schema
+            -->
+
+
+        <!-- Mapping files or annotated classes -->
+        <mapping class="org.example.entities.Car"/>
+        <mapping class="org.example.entities.CarOwner"/>
+        <!-- or -->
+        <!-- <mapping resource="com/example/User.hbm.xml"/> -->
+
+    </session-factory>
+</hibernate-configuration>
