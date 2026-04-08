@@ -18,7 +18,7 @@ public class Car {
         * how to write @GeneratedValue( strategy = GenerationType.<type> )
         * Default its AUTO
 
-       --> SEQUENCE : creates new table to store last sequence write as <default table name>_seq
+       --> SEQUENCE : creates new table to store last sequence write as default <table name>_seq
             * it generate few key values at start (1 - 50) and stores last generated value into table
                * use DB sequence object
        --> IDENTITY : use of default database "auto_increment feature" if database provides it
@@ -65,7 +65,8 @@ public class Car {
         cascade : it's effect if anything happens to car class it reflected to owner (delete)
             - ALL,DETCH,MERGE,PERSIST,REMOVE,REFRESH
         fetch : load owner ifo while loading car
-            - EAGER(default in one to one), LAZY(default in many-many, one-many and many-one)
+            - EAGER(default in one to one)[while getting object it's preloaded],
+            - LAZY(default in many-many, one-many and many-one) [when we access that object at that time loaded]
 
 
     */
@@ -74,7 +75,7 @@ public class Car {
     /*
         many-one : use annotation @ManyToOne options are same
             = bidirectional many-one: you need to use map datatype in many side and use @OneToMany
-                 - it has one extra property (mappedBy = "<car class FK>") owner of relationship
+                 - it has one extra property (mappedBy = "<car class FK>") owner of relationship ( so if its there it doesn't create new join table )
 
         many-many : both has multiple elements so we will use set on both side
             * it creates another table with default name (<Table one name>_<Table two name>)
@@ -82,7 +83,7 @@ public class Car {
             --> use @ManyToMany on property in owner class
             * column name will be <Table name>_<Table primary key>
 
-            Join columns name use @JoinTable(name,joinClumns(write owner fk) = { @JoinColumn annotation here},inverseJoinColumns(fk of owner's objects) = { @JoinColumn annotation here})
+            Join Table name use @JoinTable(name,joinClumns(write owner fk) = { @JoinColumn annotation here},inverseJoinColumns(fk of owner's objects) = { @JoinColumn annotation here})
 
             = bidirectional use these in both classes
     */
